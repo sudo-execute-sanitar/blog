@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Post</title>
+    <link rel="stylesheet" href="../static/styles/post_form.css">
+</head>
+<body>
+    <div class="post-form">
+
+        <h1>Write your thoughts!</h1>
+        <form action="/setcookie" method="POST">
+        <div class="txtb">
+            <label>Your name/nickname : </label>
+                <input type="text" name="nm" value="{{ username }}" placeholder="Enter Your Name">
+        </div>
+
+        <div class="txtb">
+            <label>Your Title : </label>
+            <input type="text" name="title" value="" placeholder="Enter Your Title">
+        </div>
+
+        <div class="txtb">
+            <label>Your Text : </label>
+            <textarea name="text"></textarea>
+        </div>
+        <p><input class="btn" type = 'submit' value = 'Login'/></p>
+        </form>
+    </div>
+</body>
+</html>
