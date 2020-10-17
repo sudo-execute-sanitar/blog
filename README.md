@@ -1,1 +1,2 @@
-#web_blog \n Please, read requirements.txt file
+#web_blog 
+Please, read requirements.txt file
