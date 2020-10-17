@@ -18,7 +18,9 @@ class Note:
         self.image_address = image_address
 
 
-records = [Note()]*2
+records = [
+    [{'id': 1}, Note()],
+]
 
 app = flask.Flask(__name__)
 

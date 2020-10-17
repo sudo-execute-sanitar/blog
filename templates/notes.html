@@ -13,16 +13,16 @@
         {% for i in range(notes|length) %}
         <div class="blog-post">
             <div class="blog-post__img">
-                <img src="{{notes[i].image_address}}" alt="">
+                <img src="{{notes[i][1].image_address}}" alt="">
             </div>
             <div class="blog-post__info">
                 <div class="blog-post__date">
-                    <span>{{notes[i].time.strftime("%d.%m.%Y")}}</span>
-                    <span>{{notes[i].author}}</span>
+                    <span>{{notes[i][1].time.strftime("%d.%m.%Y")}}</span>
+                    <span>{{notes[i][1].author}}</span>
                 </div>
-                <h1 class="blog-post__title">{{notes[i].title}}</h1>
+                <h1 class="blog-post__title">{{notes[i][1].title}}</h1>
                 <p class="blog-post__text">
-                    {{notes[i].text}}
+                    {{notes[i][1].text}}
                 </p>
                 <a href="#" class="blog-post__cta">Read More</a>
             </div>
