@@ -1,6 +1,5 @@
 import datetime
 import flask
-import sys
 
 
 class Note:
@@ -46,6 +45,27 @@ def note(note_id):
     return flask.render_template('note.html', note=notes[note_id])
 
 
+@app.route('/note/<int:note_id>/edit', methods=['POST', 'GET'])
+def edit(note_id):
+    if flask.request.method == "POST":
+        req = flask.request.form
+
+        author = req.get("nm")
+        title = req["title"]
+        text = flask.request.form["text"]
+
+        tmp = Note(author, title, text, datetime.datetime.now())
+
+        for NOTE in notes:
+            if NOTE[0]['id'] == note_id:
+                NOTE[1] = tmp
+                break
+
+        return flask.redirect('/notes')
+
+    return flask.render_template("edit_form.html", note=notes[note_id - 1])
+
+
 @app.route('/setcookie', methods=['POST', 'GET'])
 def setcookie():
     if flask.request.method == 'POST':
@@ -58,5 +78,5 @@ def setcookie():
 
     resp = flask.make_response(flask.render_template('post_form.html'))
     resp.set_cookie('userID', user)
-    flask.redirect(flask.url_for('notes'))
+    flask.redirect(flask.url_for('notes_func'))
     return resp

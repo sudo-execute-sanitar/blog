@@ -10,7 +10,7 @@
     <link rel="stylesheet" type="text/css" href="../static/styles/navbar.css">
 </head>
 <header>
-    <h1>YOUR<span>H1</span></h1>
+    <h1>WEB <span>BLOG</span></h1>
     <nav>
         <ul>
             <li><a href="/notes">Home</a></li>
@@ -20,19 +20,23 @@
 </header>
 <body>
     <div class="blog-post">
-        <div class="blog-post__img">
-            <img src="{{ note[1].image_address}}" alt="">
+        <div class="blog-post-img">
+            <img src="{{note[1].image_address}}" alt="">
         </div>
-        <div class="blog-post__info">
-            <div class="blog-post__date">
-                <span>{{note[1].time.strftime("%d.%m.%Y")}}</span>
-                <span>{{note[1].author}}</span>
+        <div class="blog-post-info">
+            <div class="blog-post-title">
+                <h2>{{note[1].title}}</h2>
             </div>
-            <h1 class="blog-post__title">{{note[1].title}}</h1>
-            <p class="blog-post__text">
-                {{note[1].text}}
-            </p>
-            <a href="#" class="blog-post__cta">Edit Post</a>
+            <div class="blog-post-date-and-author-name">
+                <span>{{note[1].author}}</span>
+                <span>{{note[1].time.strftime("%d.%m.%Y")}}</span>
+            </div>
+            <div class="blog-post-desc">
+                <p>{{note[1].text}}</p>
+            </div>
+            <div class="blog-post-read-more">
+                <a href="/note/{{note[0]['id']}}/edit">Edit</a>
+            </div>
         </div>
     </div>
 </body>

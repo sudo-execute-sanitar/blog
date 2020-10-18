@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>New Post</title>
-    <link rel="stylesheet" type="text/css" href="../static/styles/post_form.css">
+    <link rel="stylesheet" href="{{url_for('static', filename='styles/post_form.css')}}">
 </head>
 <header>
     <h1>WEB <span>BLOG</span></h1>
@@ -18,21 +18,21 @@
 <body>
     <div class="post-form">
 
-        <h1>Write your thoughts!</h1>
-        <form action="/setcookie" method="POST">
+        <h1>Edit your thoughts!</h1>
+        <form action="/note/{{note[0]['id']}}/edit" method="POST">
         <div class="txtb">
             <label>Your name/nickname : </label>
-                <input type="text" name="nm" value="{{ username }}" placeholder="Enter Your Name">
+                <input type="text" name="nm" value="{{ note[1].author }}" placeholder="Enter Your Name">
         </div>
 
         <div class="txtb">
             <label>Your Title : </label>
-            <input type="text" name="title" value="" placeholder="Enter Your Title">
+            <input type="text" name="title" value="{{note[1].title}}" placeholder="Enter Your Title">
         </div>
 
         <div class="txtb">
             <label>Your Text : </label>
-            <textarea name="text"></textarea>
+            <textarea name="text">{{note[1].text}}</textarea>
         </div>
         <p><input class="btn" type = 'submit' value = 'Post'/></p>
         </form>
