@@ -1,5 +1,6 @@
 import datetime
 import flask
+import sys
 
 
 class Note:
@@ -17,8 +18,11 @@ class Note:
         self.time = time
         self.image_address = image_address
 
+    def __str__(self):
+        return f"{self.author}, {self.title}, {self.text}, {self.image_address} \n"
 
-records = [
+
+notes = [
     [{'id': 1}, Note()],
 ]
 
@@ -26,8 +30,8 @@ app = flask.Flask(__name__)
 
 
 @app.route('/notes')
-def notes():
-    return flask.render_template('notes.html', notes=records)
+def notes_func():
+    return flask.render_template('notes.html', records=notes)
 
 
 @app.route('/notes/new')
@@ -35,6 +39,11 @@ def notes_new():
     if 'userID' in flask.request.cookies:
         return flask.render_template('post_form.html', username=flask.request.cookies.get('userID'))
     return flask.render_template('post_form.html', username='')
+
+
+@app.route('/note/<int:note_id>')
+def note(note_id):
+    return flask.render_template('note.html', note=notes[note_id])
 
 
 @app.route('/setcookie', methods=['POST', 'GET'])
@@ -45,7 +54,7 @@ def setcookie():
         user = flask.request.form['nm']
 
     tmp = Note(user, title, text, datetime.datetime.now())
-    records.append([{'id': records[-1][0]['id'] + 1}, tmp])
+    notes.append([{'id': notes[-1][0]['id'] + 1}, tmp])
 
     resp = flask.make_response(flask.render_template('post_form.html'))
     resp.set_cookie('userID', user)
