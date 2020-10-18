@@ -66,6 +66,16 @@ def edit(note_id):
     return flask.render_template("edit_form.html", note=notes[note_id - 1])
 
 
+@app.route('/note/<int:note_id>/delete', methods=['POST', 'GET'])
+def delete(note_id):
+    if flask.request.method == "GET":
+        for i in range(note_id, len(notes)):
+            notes[i][0]['id'] -= 1
+        notes.remove(notes[note_id - 1])
+
+        return flask.redirect('/notes')
+
+
 @app.route('/setcookie', methods=['POST', 'GET'])
 def setcookie():
     if flask.request.method == 'POST':
@@ -74,7 +84,10 @@ def setcookie():
         user = flask.request.form['nm']
 
     tmp = Note(user, title, text, datetime.datetime.now())
-    notes.append([{'id': notes[-1][0]['id'] + 1}, tmp])
+    if len(notes) == 0:
+        notes.append([{'id': 1}, tmp])
+    else:
+        notes.append([{'id': notes[-1][0]['id'] + 1}, tmp])
 
     resp = flask.make_response(flask.render_template('post_form.html'))
     resp.set_cookie('userID', user)
