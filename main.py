@@ -28,6 +28,11 @@ notes = [
 app = flask.Flask(__name__)
 
 
+@app.route('/')
+def hello():
+    return flask.redirect('/notes')
+
+
 @app.route('/notes')
 def notes_func():
     return flask.render_template('notes.html', records=notes)
