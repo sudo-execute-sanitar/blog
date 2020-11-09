@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <title>Community Blog</title>
     <link rel="stylesheet" href="{{url_for('static', filename='styles/notes.css')}}">
+    <script
+    src="https://code.jquery.com/jquery-3.5.1.js"
+    integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+    crossorigin="anonymous">
+    </script>
 </head>
 <body>
     <div>
@@ -19,7 +24,7 @@
     </div>
     <div>
         {% for i in range(0, records|length) %}
-        <div class="blog-post">
+        <div data-id="{{i}}" class="blog-post">
             <div class="blog-post-img">
                 <img src="{{records[i][1].image_address}}" alt="">
             </div>
@@ -37,9 +42,26 @@
                 <div class="blog-post-read-more">
                     <a href="/note/{{records[i][0]['id']-1}}">Read More</a>
                 </div>
+                <div>
+                    <p class="rating">{{records[i][1].rating}}</p>
+                </div>
+                <div>
+                    <button onclick="Change_Rating({{i}}, 1)">Increase rating</button>
+                    <button onclick="Change_Rating({{i}}, -1)">Decrease rating</button>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
+
+    <script>
+        Change_Rating = function(note_id, value){
+            $.post("/change_rating/" + note_id + "?value=" + value, function(response){
+                $("div[data-id='"+response.id+"'] p.rating").text(response.rating);
+            });
+        }
+    </script>
+
 </body>
 </html>
+

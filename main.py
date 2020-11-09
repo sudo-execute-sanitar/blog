@@ -10,12 +10,14 @@ class Note:
                       "doloribus neque debitis. Vero accusamus dolorum rerum sed asperiores beatae earum vel. Maiores "
                       "eveniet iure delectus cum officiis!",
                  time=datetime.datetime(2020, 10, 9),
-                 image_address="../static/images/shark.jpg"):
+                 image_address="../static/images/shark.jpg",
+                 rating=0):
         self.author = author
         self.title = title
         self.text = text
         self.time = time
         self.image_address = image_address
+        self.rating = rating
 
     def __str__(self):
         return f"{self.author}, {self.title}, {self.text}, {self.image_address} \n"
@@ -48,6 +50,13 @@ def notes_new():
 @app.route('/note/<int:note_id>')
 def note(note_id):
     return flask.render_template('note.html', note=notes[note_id])
+
+
+@app.route('/change_rating/<int:note_id>', methods=['POST'])
+def change_rating(note_id):
+    value = flask.request.args['value']  # ???
+    notes[note_id][1].rating += int(value)
+    return flask.jsonify({'id': note_id, 'rating': notes[note_id][1].rating})
 
 
 @app.route('/note/<int:note_id>/edit', methods=['POST', 'GET'])
